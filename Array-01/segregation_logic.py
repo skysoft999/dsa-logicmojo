@@ -70,9 +70,32 @@ def sort_0_1_2(array):
             mid = mid + 1
 
 
+def array_seg_recursive(array, low, mid, high):
+    """recursive solution mine """
+    if mid > high:
+        return
+    else:
+        if array[mid] == 0:
+            temp = array[mid]
+            array[mid] = array[low]
+            array[low] = temp
+            low += 1
+            mid += 1
+            return array_seg_recursive(array, low, mid, high)
+        elif array[mid] == 1:
+            mid += 1
+            return array_seg_recursive(array, low, mid, high)
+        else:
+            temp = array[mid] 
+            array[mid] = array[high]
+            array[high] = temp
+            high -= 1
+            return array_seg_recursive(array, low, mid, high)            
+
+
 if __name__ == "__main__":
     # array = [0, 1, 2, 0, 1, 2]
     array = [2, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1]
-    array_seg(array)
-    sort_0_1_2(array)
+    # array_seg(array)
+    array_seg_recursive(array, 0, 0, len(array)-1)
     print(f"Seggregated array result: {array}")
